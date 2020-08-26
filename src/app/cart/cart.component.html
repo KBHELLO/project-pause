@@ -1,0 +1,123 @@
+<div class="container"
+     style="font-family: Serif,serif;background: whitesmoke;margin-bottom: 10%;height: 1036px">
+  <div *ngIf="cart_product.length === 0" style="text-align: center">
+    <img class="img-fluid" src="../../assets/img/cart-transp.png" alt="image"
+         style="height:215px;width: 20%; margin-top: 5%">
+    <h5>Your cart is empty!</h5>
+    <button type="button" class="btn btn-raised btn-info" style="margin-top: 3%"
+            (click)="goToProduct()">SHOP NOW
+    </button>
+  </div>
+  <div class="row" style="margin: 3% 1px 1px;">
+    <div class="col-md-8 col-lg-8 col-sm-12" style="padding: 10px;">
+      <div class="card my-cart-header" *ngIf="cart_product.length !== 0">
+        <h6 class="card-text">My Cart ({{getProductSum()}})</h6>
+      </div>
+      <hr *ngIf="cart_product.length !== 0">
+      <div *ngIf="cart_product.length !== 0">
+        <div class="card card-radius" *ngFor="let picture of cart_product; let i = index">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <div class="image-thumbnail-box img-thumbnail">
+                  <img class="img-fluid" src="{{picture['picture']}}" alt="image" (click)="backToProduct(i)"
+                       style="max-width: 100%;height: auto;cursor: pointer">
+                </div>
+              </div>
+              <div class="col-9">
+                <h6 class="card-text">
+                  <span>{{picture['product_brand'] + ' ' + picture['product_name'] | titlecase}}</span>
+                  <span>( {{picture['product_color'] | titlecase }}, </span>
+                  <span>{{picture['product_storage']}} GB)</span>
+                </h6>
+                <p style="color: red;"><del><b>&#8377;{{picture['sale_price']}}</b></del>&nbsp;&nbsp;
+                  <b>{{picture['special_price']}}</b></p>
+                <p style="line-height: 0">Quantity: <span><b>{{picture['quantity']}}</b></span></p>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"
+                        (click)="updateQuantity(i)">
+                  Remove
+                </button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"
+                        (click)="updateQuantity(i)">Add Product
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-12" style="padding: 10px">
+      <div class="card card-radius" style="font-family: Serif,serif" *ngIf="cart_product.length !== 0">
+        <div class="card-body">
+          <h1 class="card-title">PRICE DETAILS</h1>
+          <hr>
+          <div class="row" style="border-bottom: 1px dashed lightgray; padding: 5px">
+            <div class="col-7">
+              <p style="font-size: 13px">Price( {{getProductSum()}} Item)</p>
+              <p>Delivery</p>
+            </div>
+            <div class="col-5">
+              <p style="font-size: 13px">&#8377;{{getTotalPrice()}}</p>
+              <p style="color:green;">FREE</p>
+            </div>
+          </div>
+          <div class="row" style="padding: 5px">
+            <div class="col-7"><span>Total Payable</span></div>
+            <div class="col-5"><span>&#8377;{{getTotalPrice()}}</span></div>
+          </div>
+        </div>
+      </div>
+      <button type="button"
+              class="btn btn-raised btn-warning btn-block" style="margin-top: 5%"
+              [style.display]="cart_product.length !== 0 ? 'block' : 'none'"
+              (click)="goToPayment()">Place Order
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!--remove from cart modal start-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content" style="padding: 10px;font-family: Serif,serif">
+      <div class="modal-body" style="text-align: center">
+        <i class="fa fa-warning" style="font-size:48px;color:red"></i>
+        <p><span style="color: red">Are you sure you want to remove this item?</span></p>
+        <div class="row">
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-warning btn-block" data-dismiss="modal">Cancel</button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-raised btn-info btn-block" (click)="removeCart()">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--remove from cart modal end-->
+<!--edit from cart modal start-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content" style="padding: 10px; font-family:Serif,serif;">
+      <div class="modal-body" style="text-align: center">
+        <i class="fa fa-edit" style="font-size:48px;color:green"></i>
+        <p>Are you sure you want to add this item?</p>
+        <div class="row" style="padding: 0">
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-warning btn-block" data-dismiss="modal">Cancel</button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-raised btn-info btn-block" (click)="updateCart()">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--edit modal from cart end-->

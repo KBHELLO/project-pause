@@ -1,0 +1,511 @@
+<div class="container" style="padding: 20px;margin-bottom: 15%;background: whitesmoke">
+  <div [style.display]="!paymentDone ? 'block' : 'none'">
+    <div class="row">
+      <div class="col-md-8 col-sm-12 col-lg-8">
+        <div class="card-style" style="">
+          <h6>Delivery Address</h6>
+        </div>
+        <div class="">
+          <button type="button"
+                  class="btn btn-raised btn-info btn-sm"
+                  data-toggle="modal"
+                  data-backdrop="static"
+                  data-keyboard="false"
+                  data-target="#addDetails"
+                  [style.display]="customerAddress.length === 0 ? 'block' : 'none'">
+            add details
+          </button>
+          <button
+            type="button"
+            class="btn btn-success btn-block"
+            data-toggle="modal"
+            data-target="#addAddress"
+            data-backdrop="static"
+            data-keyboard="false"
+            [style.display]="customerAddress.length !== 0 ? 'block' : 'none'"
+            style="margin-bottom: 4%">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add Address
+          </button>
+        </div>
+        <div class="alert alert-danger" *ngIf="isAddressBlank"
+             style="border-radius: 5px; font-size: 10px">
+          <span>Please Select an Address or Address Before payment.</span>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12" *ngFor="let address of customerAddress; let i=index"
+               style="margin-bottom: 3%">
+            <div class="card-style"
+                 style="cursor: pointer;font-size: 10px"
+                 (click)="getCustomerId(address['id'], i)"
+                 [style.border]="isAddressSelected === true && getIndex === i ? '1px solid green' : ''">
+              <p><span>{{address['address_line_1']}}</span>
+                <span>{{address['address_line_2']}} , {{address['city_name']}} - {{address['pincode']}}</span></p>
+              <p>
+                <span>State : </span>{{address['state_name']}}<br>
+                <span>Land Mark : </span>{{address['landmark']}}<br>
+                <span>Address Type : </span>{{address['address_type']}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--<div class="card-style">
+          <h6>CHOOSE PAYMENT METHOD</h6>
+          <hr style="margin-top: 0">
+          <div>
+            &lt;!&ndash;<p style="cursor: pointer;">Cash on Delivery</p>
+            <hr>&ndash;&gt;
+            <p style="cursor: pointer">Online Payment (Razorpay)</p>
+          </div>
+        </div>-->
+      </div>
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="card-style">
+          <div class="card-body">
+            <h5 class="card-title">Cart Price</h5>
+            <hr>
+            <div class="row" style="border-bottom: 1px dashed lightgray; padding: 5px">
+              <div class="col-7">
+                <p style="font-size: 13px">Price( {{getProductSum()}} Item)</p>
+                <p>Delivery</p>
+              </div>
+              <div class="col-5">
+                <p style="font-size: 13px">&#8377;{{getTotalPrice()}}</p>
+                <p style="color:green;">FREE</p>
+              </div>
+            </div>
+            <div class="row" style="padding: 5px">
+              <div class="col-7" style="font-size: 15px"><span>Total Payable</span></div>
+              <div class="col-5"><span>&#8377;{{getTotalPrice()}}</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex">
+          <button type="button"
+                  class="btn btn-raised btn-info btn-block"
+                  (click)="openCashOnDelivery()"
+                  style="margin-top: 4%;margin-right: 2%">Pay Later
+          </button>
+          <button
+            type="button"
+            class="btn btn-raised btn-warning btn-block"
+            style="margin-top: 4%;margin-left: 2%" (click)=" openRazorpayCheckout()">Pay Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [style.display]="paymentDone ? 'block' : 'none'" style="text-align: center">
+    <div class="card-style"
+         style="margin-top: 10%;padding: 20px;text-align: center;border-radius: 5px;
+         width: 400px;margin-left: auto;margin-right: auto">
+      <i class="fa fa-check-circle" style="font-size:48px;color:green"></i>
+      <p class="text text-success" style="font-size: 20px">Your order is successfully placed.</p>
+      <button type="button" class="btn btn-raised btn-info" (click)="shopDone()">SHOP MORE</button>
+    </div>
+  </div>
+</div>
+
+<!--add user details modal start-->
+
+<div class="modal fade"
+     id="addDetails"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 5px; padding: 10px">
+      <div class="modal-body" style="border: 1px solid lightgray; border-radius: 5px; padding: 10px">
+        <form [formGroup]="customerForm" (ngSubmit)="customerDetails()" style="font-size: 10px">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="firstName" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="firstName"
+                       required
+                       placeholder="First Name"
+                       formControlName="first_name">
+                <div *ngIf="customerSubmitted && customerDetailsControl.first_name.errors" style="color: red;">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.first_name.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="lastName" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="lastName"
+                       required
+                       placeholder="Last Name"
+                       formControlName="last_name">
+                <div *ngIf="customerSubmitted && customerDetailsControl.last_name.errors" style="color: red;">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.last_name.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="email" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="email"
+                       required
+                       placeholder="Email"
+                       formControlName="email">
+                <div *ngIf="customerSubmitted && customerDetailsControl.email.errors" style="color:red;">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.email.errors.required">
+                    This field is required.
+                  </div>
+                  <div *ngIf="customerSubmitted && customerDetailsControl.email.errors.email">
+                    Email must be a valid email.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="addressLine1" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="addressLine1"
+                       required
+                       placeholder="Address Line 1"
+                       formControlName="address_line_1">
+                <div *ngIf="customerSubmitted && customerDetailsControl.address_line_1.errors" style="color:red;">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.address_line_1.errors.required">
+                    This Filed is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="addressLine2" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="addressLine2"
+                       required
+                       placeholder="Address Line 2"
+                       formControlName="address_line_2">
+                <div *ngIf="customerSubmitted && customerDetailsControl.address_line_2.errors" style="color: red">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.address_line_2.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="landmark" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="landmark"
+                       required
+                       placeholder="landmark"
+                       formControlName="landmark">
+                <div *ngIf="customerSubmitted && customerDetailsControl.landmark.errors" style="color: red">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.landmark.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="pinCode" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="pinCode"
+                       required
+                       placeholder="Pin Code"
+                       formControlName="pinCode">
+                <div *ngIf="customerSubmitted && customerDetailsControl.pinCode.errors" style="color: red">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.pinCode.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="state" class="bmd-label-floating">State</label>
+                <select class="form-control" id="state" formControlName="state" (change)="getStateId($event)">
+                  <option *ngFor="let state of states" [value]="state.id">
+                    {{state.state_name}}
+                  </option>
+                </select>
+                <div *ngIf="customerSubmitted && customerDetailsControl.state.errors" style="color:red;">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.state.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="city" class="bmd-label-floating">City</label>
+                <select class="form-control" id="city" formControlName="city">
+                  <option *ngFor="let city of cities" [value]="city['id']">
+                    {{city['city_name']}}
+                  </option>
+                </select>
+                <div *ngIf="customerSubmitted && customerDetailsControl.city.errors" style="color: red">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.city.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="address_type" class="bmd-label-floating">Address Type</label>
+                <select class="form-control" id="address_type" formControlName="address_type">
+                  <option>Home</option>
+                  <option>Office</option>
+                </select>
+                <div *ngIf="customerSubmitted && customerDetailsControl.address_type.errors" style="color: red">
+                  <div *ngIf="customerSubmitted && customerDetailsControl.address_type.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-warning btn-block" (click)="closeModal()">Close</button>
+            </div>
+            <div class="col-6">
+              <button type="submit" class="btn btn-raised btn-info btn-block">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--add user details modal end-->
+
+
+<!--add address modal start-->
+
+<div class="modal fade"
+     id="addAddress"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 5px; padding: 10px">
+      <div class="modal-body" style="border: 1px solid lightgray; border-radius: 5px; padding: 10px">
+        <form [formGroup]="updateAddressForm" (ngSubmit)="updateCustomer()" style="font-size: 10px">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="updateAddressLine1" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="updateAddressLine1"
+                       required
+                       formControlName="updateAddressLine1"
+                       placeholder="Address Line 1">
+                <div *ngIf="updateAddressSubmitted && updateAddress.updateAddressLine1.errors" style="color: red">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.updateAddressLine1.errors.required">
+                    This Field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="updateAddressLine2" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="updateAddressLine2"
+                       required
+                       formControlName="updateAddressLine2"
+                       placeholder="Address Line 2">
+                <div *ngIf="updateAddressSubmitted && updateAddress.updateAddressLine2.errors" style="color: red">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.updateAddressLine2.errors.required">
+                    This Field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="landmark1" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="landmark1"
+                       required
+                       formControlName="landmark"
+                       placeholder="Landmark">
+                <div *ngIf="updateAddressSubmitted && updateAddress.landmark.errors" style="color: red">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.landmark.errors.required">
+                    This Field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="pinCode1" class="bmd-label-floating"></label>
+                <input type="text"
+                       class="form-control"
+                       id="pinCode1"
+                       required
+                       formControlName="pinCode"
+                       placeholder="Pin Code">
+                <div *ngIf="updateAddressSubmitted && updateAddress.pinCode.errors" style="color: red">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.pinCode.errors.required">
+                    This Field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="state1" class="bmd-label-floating">State</label>
+                <select class="form-control" id="state1" formControlName="state1" (change)="getStateId($event)">
+                  <option *ngFor="let state of states" [value]="state.id">
+                    {{state.state_name}}
+                  </option>
+                </select>
+                <div *ngIf="updateAddressSubmitted && updateAddress.state1.errors" style="color:red;">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.state1.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="city1" class="bmd-label-floating">City</label>
+                <select class="form-control" id="city1" formControlName="city1">
+                  <option *ngFor="let city of cities" [value]="city['id']">
+                    {{city['city_name']}}
+                  </option>
+                </select>
+                <div *ngIf="updateAddressSubmitted && updateAddress.city1.errors" style="color: red">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.city1.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="address_type1" class="bmd-label-floating">Address Type</label>
+                <select class="form-control" id="address_type1" formControlName="address_type1">
+                  <option>Home</option>
+                  <option>Office</option>
+                </select>
+                <div *ngIf="updateAddressSubmitted && updateAddress.address_type1.errors" style="color: red">
+                  <div *ngIf="updateAddressSubmitted && updateAddress.address_type1.errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-warning btn-block" (click)="closeModal()">Close</button>
+            </div>
+            <div class="col-6">
+              <button type="submit" class="btn btn-raised btn-info btn-block">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--add address modal end-->
+
+<!--cash on delivery modal start-->
+<div class="modal fade"
+     id="CODModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 350px">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #528FF0;padding:15px;border-radius: 0;color: white">
+        <p><span class="modal-title" style="font-size: 20px">HyperXchange</span><br>
+          <span>&#8377;{{getTotalPrice()}}</span></p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [style.display]="otpDisplayCount === 0 ? 'block' : 'none'">
+          <div class="alert alert-danger" *ngIf="otpPhoneError">Invalid Phone Number.</div>
+          <form [formGroup]="otpPhoneForm" (ngSubmit)="getPhoneNumber()">
+            <div class="form-group">
+              <label for="contact" class="bmd-label-floating">Phone</label>
+              <input type="text" class="form-control" id="contact" formControlName="phone" required>
+              <div *ngIf="otpPhoneSubmit && otpPhoneFormControl.phone.errors" style="color: red">
+                <div *ngIf="otpPhoneSubmit && otpPhoneFormControl.phone.errors.required">
+                  Phone Number is required.
+                </div>
+                <div *ngIf="otpPhoneSubmit && otpPhoneFormControl.phone.errors.minlength">
+                  Phone Number must be 10 digits number.
+                </div>
+                <div *ngIf="otpPhoneSubmit && otpPhoneFormControl.phone.errors.maxlength">
+                  Phone Number must be 10 digits number.
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline-info" style="float: right">OTP</button>
+          </form>
+        </div>
+        <div [style.display]="otpDisplayCount === 1 ? 'block' : 'none'">
+          <div class="alert alert-danger" *ngIf="otpNumberError">Invalid OTP. Check your OTP again.</div>
+          <form [formGroup]="otpForm" (ngSubmit)="getOtpNumber()">
+            <div class="form-group">
+              <label for="otp" class="bmd-label-floating"></label>
+              <input type="text" class="form-control" id="otp" placeholder="OTP" formControlName="otp" required>
+              <div *ngIf="otpNumberSubmit && otpNumberControl.otp.errors" style="color: red">
+                <div *ngIf="otpNumberSubmit && otpNumberControl.otp.errors.required">
+                  OTP is required.
+                </div>
+                <div *ngIf="otpNumberSubmit && otpNumberControl.otp.errors.minlength">
+                  OTP must be 4 digits Number
+                </div>
+                <div *ngIf="otpNumberSubmit && otpNumberControl.otp.errors.maxlength">
+                  OTP must be 4 digits Number
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline-success btn-sm" style="float: right">Submit</button>
+          </form>
+        </div>
+        <div [style.display]="otpDisplayCount === 2 ? 'block' : 'none'">
+          <div class="alert alert-success">Phone Number verified successfully.</div>
+          <p style="padding: 20px; font-size: 15px">
+            <span>An amount of INR <b>500</b> would be charged as confirmation.</span> <br>
+            <span>The same would be deducted from the final sellable amount </span>
+          </p>
+          <button
+            type="button"
+            class="btn btn-raised btn-warning btn-block" (click)="payCashOnDelivery()"
+            style="margin-top: 4%;">Pay Now
+          </button>
+        </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+<!--cash on delivery modal end-->

@@ -1,0 +1,16 @@
+.invalid-error{
+  color: red;
+  font-size: 12px;
+}
+
+.card-style{
+  border: 1px solid lightgray;
+  background: white;
+  padding: 10px;
+  margin-bottom: 2%;
+  border-radius: 5px
+}
+.span-text{
+  font-size: 20px;
+  color: lightgray;
+}

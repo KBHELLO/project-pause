@@ -1,0 +1,352 @@
+<div class="row">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
+       style="padding: 0;background-color: black!important;">
+    <div class="navbar-nav" style="width: -webkit-fill-available;">
+      <!--  <div class="search-none search-block mobile-search-none mobile other" style=" padding: 10px">
+          <input class="form-control"
+                 list="search"
+                 name="search"
+                 aria-label="Search"
+                 [(ngModel)]="searchValue"
+                 (input)="getSearchProduct()"
+                 placeholder="Search here"
+                 style="width: 100%;
+                        font-family:Serif, FontAwesome,serif;
+                        background-color: whitesmoke;
+                        color: black">
+          <datalist id="search" style="font-family: Serif,serif" (click)="getSearchProduct()">
+            <option *ngFor="let product of searchProduct"
+                    value="{{product['brand'] +' '+product['model'] + ' '
+                    +product['color'] + ' ' + product['storage']}}"></option>
+          </datalist>
+        </div>-->
+
+      <div><a class="navbar-brand" href="#" style="padding: 0;">
+        <img src="../assets/img/logo.png" alt="logo" style="height: 75px;">
+      </a></div>
+
+
+      <div style="display: inline-flex;position: absolute;right: 20px;width: inherit ;">
+
+        <!--   <div class="mobile other" style="position: absolute;right: 570px;top: 10px;">
+             <input class="form-control"
+                    list="search1"
+                    name="search1"
+                    aria-label="Search"
+                    [(ngModel)]="searchValue"
+                    (input)="getSearchProduct();"
+                    placeholder="Search here"
+                    style="width: 100%;
+                           font-family:Serif, FontAwesome,serif;
+                            color: black!important">
+             <datalist id="search1" style="font-family: Serif,serif" (click)="getSearchProduct()" >
+               <option *ngFor="let product of searchProduct"
+                       value="{{product['brand'] +' '+product['model'] + ' '
+                       +product['color'] + ' ' + product['storage']}}"></option>
+             </datalist>
+           </div>-->
+
+
+        <div style="display: inline-flex;position: absolute;right: 8px">
+          <div class="nav-item nav-link" style="cursor: pointer; color: white;float: left"
+               [style.display]="!getUserDetails() ? 'block': 'none'"
+               data-toggle="modal" data-target="#loginModal">
+            <i class="fa fa-sign-in icon-block" aria-hidden="true"></i>
+            <span style="font-size: 15px; margin-left: 3px" class="text-none">Login</span>
+          </div>
+          <div class="nav-item nav-link"
+               style="cursor: pointer; zoom: 1.1; color: white; float: right" data-toggle="modal" data-target="#logout"
+               (click)="getOrder()"
+               [style.display]="getUserDetails() ? 'block': 'none'">
+            <i class="fa fa-user icon-block" aria-hidden="true"></i>
+            <span class="text-none" style="margin-left: 3px">MY Account</span>
+          </div>
+          <div class="nav-item nav-link"
+               [style.display]="!getUserDetails() ? 'block': 'none'"
+               data-toggle="modal" data-target="#loginModal"
+               style="cursor: pointer;zoom: 1.1;color: white">
+            <i class="fa fa-cart-plus icon-block" aria-hidden="true" style="margin-right: 3px"></i>
+            <span class="text-none">cart</span>
+          </div>
+          <div class="nav-item nav-link"
+               [style.display]="getUserDetails() ? 'block': 'none'"
+               (click)="goCart()"
+               style="cursor: pointer;zoom: 1.1;color: white">
+            <i class="fa fa-cart-plus icon-block" aria-hidden="true" style="margin-right: 3px"></i>
+            <span class="text-none">cart</span>
+          </div>
+
+          <div class="nav-item nav-link"
+               style="cursor: pointer;zoom: 1.1;color: white" (click)="getApp()">
+            <i class="fa fa-mobile icon-block" aria-hidden="true" style="margin-right: 3px;margin-left: 5px"></i>
+            <span class="text-none">Get App</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
+<!-- Footer -->
+<footer class="pt-4" style="background: black;width: 100%">
+  <!-- Footer Elements -->
+  <div class="container">
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+        <a class="btn-floating btn-fb mx-1" href="https://www.facebook.com/HyperXchange/" target="_blank">
+          <i class="fa fa-facebook-square" aria-hidden="true" style="color: white;zoom: 2"></i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="btn-floating btn-tw mx-1" href="https://www.instagram.com/hyperxchangeofficial/" target="_blank">
+          <i class="fa fa-instagram" aria-hidden="true" style="color: white;zoom: 2"></i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="btn-floating btn-gplus mx-1" href="https://twitter.com/hyperxchange" target="_blank">
+          <i class="fa fa-twitter" aria-hidden="true" style="color: white;zoom: 2"></i>
+        </a>
+      </li>
+    </ul>
+    <!-- Social buttons -->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3" style="color: white">© Copyright:
+    <a> 2016-present HyperXchange, All rights reserved.</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+<!--logout modal start-->
+
+<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="border-radius: 10px">
+      <div class="modal-body" style="font-family: Serif,serif">
+        <h5><i class="fa fa-user" aria-hidden="true" style="color: #03a9f4;font-size: 30px; margin-right: 2%"></i>
+          <span>My Account!</span></h5>
+        <hr>
+        <div [style.display]="myProducts.length !== 0 ? 'block' : 'none'">
+          <div class="order-block">
+            <div class="card" *ngFor=" let myProduct of myProducts; let i =index"
+                 [style.border]="myProduct['status_name'] === 'Cancelled' ? '1px solid red' : '1px solid green'"
+                 style="margin-bottom: 2%;padding: 10px">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                  <p>
+                    <span>Order Id: {{myProduct['hx_order_id']}}</span><br>
+                    <span>Order Date: {{splitD(myProduct['order_date'])[0]}}</span><br>
+                    <span>Delivery Date: <b>{{splitD(myProduct['delivery_date'])[0]}}</b></span><br>
+                    <span>Total Payable Amount: <b>&#8377;{{myProduct['order_total_amount']}}</b></span><br>
+                    <span>Current Order Status:
+                      <b [style.color]="myProduct['status_name'] === 'Cancelled' ? 'red': 'green'">
+                        {{myProduct['status_name']}}
+                      </b>
+                    </span><br>
+                  </p>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6" style="text-align: right">
+                  <button type="button"
+                          class="btn btn-danger"
+                          data-toggle="modal"
+                          [style.display]="myProduct['status_name'] !== 'Cancelled' ? 'block' : 'none'"
+                          (click)="cancelOrderId(myProduct['hx_order_id'])"
+                          data-target="#cancelModal">cancel Order
+                  </button>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                  <div *ngFor="let pd of myProducts[i]['product']">
+                    <!--<p>
+                      <span>Product Details</span><br>
+                      <span>Model : {{splitSku(pd['sku'])[1] + ' ' + splitSku(pd['sku'])[2] | titlecase}}</span><br>
+                      <span>Color: {{splitSku(pd['sku'])[3] | titlecase}}</span><br>
+                      <span>Storage: {{splitSku(pd['sku'])[4]}} GB</span><br>
+                      <span>Quantity: <b>{{pd['quantity']}}</b></span>
+                    </p>-->
+                    <table class="table table-sm">
+                      <thead>
+                      <tr>
+                        <th>MODEL</th>
+                        <th style="text-align: center">QUANTITY</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>
+                          {{splitSku(pd['sku'])[1] + ' ' + splitSku(pd['sku'])[2] | titlecase}}
+                          {{splitSku(pd['sku'])[3] | titlecase}}
+                          {{splitSku(pd['sku'])[4]}}
+                        </td>
+                        <td style="text-align: center">{{pd['quantity']}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [style.display]="myProducts.length === 0 ? 'block' : 'none'">
+          <div class="alert alert-info" style="border-radius: 5px; ">
+            <p>No Orders placed yet.</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-12">
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-info btn-sm btn-block" data-dismiss="modal">Close</button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-raised btn-warning btn-sm btn-block" data-dismiss="modal"
+                    (click)="logout()">
+              <i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 2%"></i>logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--logout modal end-->
+
+
+<!--login modal start-->
+<div class="modal fade"
+     id="loginModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 10px">
+      <div class="modal-body" style="padding: 0 0 0 0;">
+        <div>
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-12 login-image-display-none" style="padding: 0;background: lightgray;">
+              <img class="img-fluid" src="../assets/img/loginBanner.svg" alt="login Banner"
+                   style="max-width: 100%;height: auto">
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-12">
+              <div [style.display]="loginDisplayCount === 0 ? 'block' : 'none'">
+                <form [formGroup]="loginPhoneNoForm"
+                      (ngSubmit)="loginPhoneNo()"
+                      style="padding: 20px;">
+                  <div class="form-group">
+                    <label for="phoneNo" class="bmd-label-floating"></label>
+                    <div class="alert alert-warning" *ngIf="isPhoneNoError"
+                         style="border-radius: 5px; font-size: 10px">
+                      Something went wrong, Please check you phone number and try again.
+                    </div>
+                    <div class="alert alert-warning" *ngIf="getOtpServerError"
+                         style="border-radius: 5px; font-size: 10px">
+                      Something went wrong, Please check you phone number and try again.
+                    </div>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Phone Number"
+                           formControlName="phoneNumber"
+                           required
+                           id="phoneNo">
+                    <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors"
+                         style="color: red; font-size: 10px">
+                      <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors.required">
+                        This field is required
+                      </div>
+                      <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors.maxlength">
+                        Phone Number must be 10 digits number
+                      </div>
+                      <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors.minlength">
+                        Phone Number must be 10 digits number
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit"
+                          class="btn btn-raised btn-warning btn-sm">
+                    <span>Request OTP</span>
+                  </button>
+                </form>
+              </div>
+              <div [style.display]="loginDisplayCount === 1 ? 'block' : 'none'">
+                <form [formGroup]="otpFormGroup" (ngSubmit)="otpFormSubmit()" style="padding: 20px;">
+                  <div class="form-group">
+                    <label for="otp" class="bmd-label-floating"></label>
+                    <div class="alert alert-warning" *ngIf="isOtpError"
+                         style="border-radius: 5px; font-size: 10px">
+                      OTP should be 4 digits number and contains only numbers or try again!
+                    </div>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="OTP"
+                           formControlName="otp"
+                           required
+                           id="otp">
+                    <div *ngIf="otpFormSubmitted && otpForm.otp.errors" style="color: red; font-size: 10px">
+                      <div *ngIf="otpFormSubmitted && otpForm.otp.errors.required">
+                        This Field is required.
+                      </div>
+                      <div *ngIf="otpFormSubmitted && otpForm.otp.errors.maxlength">
+                        OTP must be 4 digits.
+                      </div>
+                      <div *ngIf="otpFormSubmitted && otpForm.otp.errors.minlength">
+                        OTP must be 4 digits.
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit"
+                          class="btn btn-raised btn-info btn-sm" (click)="getOptChange()">
+                    <span style="font-size: 15px;margin-right: 2%">Submit</span>
+                  </button>
+                  <button type="button"
+                          class="btn btn-outline-warning btn-sm"
+                          style="margin-left: 2%" (click)="backPhoneNo()">Back
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--login modal end-->
+
+<!--cancel confirmation modal start-->
+<div class="modal fade"
+     id="cancelModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 5px;padding: 10px">
+      <div class="modal-body" style="border: 1px solid lightgray;
+                                     padding: 10px;
+                                     border-radius: 5px;font-family: Nunito,serif">
+        <div style="text-align: center; color: red">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: 50px"></i>
+          <p>
+            Are you sure to cancel this orders?
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">no</button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-raised btn-info btn-block" (click)="cancelOrder()">YES</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--cancel confirmation modal end-->

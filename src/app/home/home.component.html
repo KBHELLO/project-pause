@@ -1,0 +1,301 @@
+<!--<div class="row" style="margin: .1px;height: 100%">
+  <div class="col-md-8 col-sm-12 col-lg-8" style="padding: 0">
+
+    <div id="carouselExampleControls" class="carousel slide vertical" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100 img-fluid" src="../../assets/img/banner.png"
+               style="max-width: 100%; cursor: pointer;height:auto"
+               (click)="showEarPods('SmartPhones')"
+               alt="Second slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../../assets/img/banner.png"
+               style="width: 100%; cursor: pointer;height: 101%"
+               (click)="showEarPods('SmartPhones')"
+               alt="Second slide">
+        </div>
+      </div>
+      <a class="carousel-control left" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control right" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-12 col-lg-4" style="padding: 0">
+    <div class="">
+      <div style="width: 100%;">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="../../assets/img/iPhoneX.png" alt="First slide Image">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="../../assets/img/watch.png" alt="Second slide Image">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <div class="background-hot-deals-image"
+           style="background: url('../../assets/img/hot-deals-background.png');color: white">
+        <div style="padding: 27px;height: 50%">
+          <span style="font-size: 2vw">Explore Other</span><br>
+          <span style="font-size: 1.2vw">Hot Deals In</span><br>
+          <span>............................</span><br>
+          <span style="color: red">TVs & Accessories</span><br>
+          <span>Music Systems & Accessories</span><br>
+          <span>Mobiles & Laptops</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+<div class="container-fluid">
+  <div class="row pt-10">
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row" style="margin: .1px">
+        <div class="col-sm-12 col-md-8 col-lg-8" style="padding: 0;min-height: fit-content;">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" (click)="productCategory('')">
+                <img class="d-block w-100" src="../../assets/img/banner1.jpg" alt="First slide"
+                     style="height: auto; max-width: 100%; cursor: pointer">
+              </div>
+              <div class="carousel-item" (click)="productCategory('')">
+                <img class="d-block w-100" src="../../assets/img/banner2.jpg" alt="second slide"
+                     style="height: auto; max-width: 100%; cursor: pointer">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4" style="padding: 0;min-height: fit-content;">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            </ol>
+            <div class="carousel-inner" (click)="productCategory('mobile')">
+              <div class="carousel-item active">
+                <img class="d-block w-100 img-fluid" src="../../assets/img/iPhoneX.png" alt="First slide Image"
+                     style="max-width: 100%;height: auto">
+
+              </div>
+              <div class="carousel-item"
+                   (click)="product('WEARABLES','WATCHSERIES3', 'GOLD', 38)">
+                <img class="d-block w-100 img-fluid" src="../../assets/img/watch.jpg" alt="Second slide Image"
+                     style="max-width: 100%; height: auto">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="background-hot-deals-image"
+               style="background: url('../../assets/img/hot-deals-background.png');
+                  color: white;">
+            <div style="padding: 30px;">
+              <span style="font-size: 2vw">Explore Other</span><br>
+              <span style="font-size: 1.2vw">Hot Deals In</span><br>
+              <span>............................</span><br>
+              <span style="color: red">TVs & Accessories</span><br>
+              <span>Music Systems & Accessories</span><br>
+              <span>Mobiles & Laptops</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 1px">
+        <div class="col-md-6 col-sm-12 col-lg-6" style="padding: 0;cursor: pointer"
+             (click)="product('SMARTPHONE','IPHONE6S', 'ROSEGOLD', 16)">
+          <img src="../../assets/img/image2.png" alt="img" style="width: 100%;height: 100%">
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6" style="padding: 0;cursor: pointer"
+             (click)="productCategory('mobile')">
+          <img src="../../assets/img/mobile.png" alt="image" style="width: 100%;height: 100%">
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12" style="padding: 0;cursor: pointer"
+             (click)="product('SMARTPHONE','IPHONE7', 'ROSEGOLD', 32)">
+          <img src="../../assets/img/image1.png" alt="image" style="width: 100%;height: 100%">
+        </div>
+      </div>
+      <div style="text-align: center;background: whitesmoke;padding: 20px;">
+        <span style="font-size: 20px">TRENDING NOW</span>
+        <hr style="width: 20%;border: 1px solid black">
+        <div id="carouselExampleControls1"
+             class="carousel slide mobile-carousel-block mobile-carousel-none"
+             style="margin: 1px"
+             data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active" (click)="product('SMARTPHONE','IPHONE6', 'SPACEGRAY', 64)">
+              <img class="d-block w-100" src="../../assets/img/image6.png" alt="First slide">
+              <p style="font-size: 15px; padding: 10px;text-align: center">
+                <b>APPLE IPHONE 6(64 GB)</b><br>
+                <span style="color: red">&#8377;10,499</span><br>
+                <span class="fa fa-star-o checked" style="color: goldenrod"></span>
+                <span class="fa fa-star-o checked" style="color: goldenrod"></span>
+                <span class="fa fa-star-o checked" style="color: goldenrod"></span>
+                <span class="fa fa-star-o checked" style="color: goldenrod"></span>
+                <span class="fa fa-star-o" style="color: goldenrod"></span><br>
+              </p>
+            </div>
+            <div class="carousel-item" (click)="product('SMARTPHONE','IPHONE6S', 'GOLD', 16)">
+              <img class="d-block w-100" src="../../assets/img/image7.png" alt="Second slide">
+              <p style="font-size: 15px;padding: 10px;text-align: center">
+                <b>APPLE IPHONE 6S(16 GB)</b><br>
+                <span style="color: red">&#8377;13,099</span><br>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star" style="color: goldenrod"></span><br>
+              </p>
+            </div>
+            <div class="carousel-item" (click)="product('SMARTPHONE','IPHONE7', 'BLACK', 128)">
+              <img class="d-block w-100" src="../../assets/img/image8.png" alt="Third slide">
+              <p style="font-size: 15px;padding: 10px;text-align: center">
+                <b>APPLE IPHONE 7(128 GB)</b><br>
+                <span style="color: red">&#8377;20,999</span><br>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star" style="color: goldenrod"></span><br>
+              </p>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="row mobile-carousel-block other-carousel-none" style="margin-top: 5%;margin-bottom: 10%">
+          <div class="col-md-4 col-sm-12 col-lg-4" style="cursor: pointer"
+               (click)="product('SMARTPHONE','IPHONE6', 'SPACEGRAY', 64)">
+            <div class="img-hover">
+              <div style="height: auto; width: 100%; background: white;border-radius: 5px">
+                <img class=""
+                     src="../../assets/img/image6.png" alt="image"
+                     style="max-width: 100%;height: auto;">
+              </div>
+              <p style="font-size: 15px; padding: 10px;text-align: center">
+                <b>APPLE IPHONE 6(64 GB)</b><br>
+                <span style="color:black">Space Gray</span><br>
+                <span style="color: red"><del>&#8377;44,999</del></span>&nbsp;
+                <span style="color: red">&#8377;11,929</span><br>
+
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star" style="color: goldenrod"></span><br><br>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12 col-lg-4" style="cursor: pointer"
+               (click)="product('SMARTPHONE','IPHONE6S', 'GOLD', 16)">
+            <div class="img-hover">
+              <div style="height: auto; width: 100%; background: white;">
+                <img class=""
+                     src="../../assets/img/image7.png" alt="image"
+                     style="max-width: 100%;height: auto">
+              </div>
+              <p style="font-size: 15px;padding: 10px;text-align: center">
+                <b>APPLE IPHONE 6S(16 GB)</b><br>
+                <span style="color:black">Gold</span><br>
+                <span style="color: red"><del>&#8377;31,660</del></span>&nbsp;
+                <span style="color: red">&#8377;11,929</span><br>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star" style="color: goldenrod"></span><br>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12 col-lg-4" style="cursor: pointer"
+               (click)="product('SMARTPHONE','IPHONE7', 'BLACK', 128)">
+            <div class="img-hover">
+              <div style="height: auto; width: 100%; background: white;">
+                <img class=""
+                     src="../../assets/img/image8.png" alt="image"
+                     style="width: 100%; height:auto;">
+              </div>
+              <p style="font-size: 15px;padding: 10px;text-align: center">
+                <b>APPLE IPHONE 7(128 GB)</b><br>
+                <span style="color:black">Black</span><br>
+                <span style="color: red"><del>&#8377;55,999</del></span>&nbsp;
+                <span style="color: red">&#8377;20,999</span><br>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star checked" style="color: goldenrod"></span>
+                <span class="fa fa-star" style="color: goldenrod"></span><br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="height: auto; min-width: 100%;background: url('../../assets/img/bottom-image.jpg') center;">
+        <div class="row" style="margin: 1px;">
+          <div class="col-md-4 col-sm-4 col-xl-4">
+            <div style="padding: 38px;">
+              <span style="color: white;font-size: 18px"><b>Blockbuster Deals on iPhones</b></span><br>
+              <hr style="width: 100%;color: white; border: 1px solid white">
+              <span style="color: white">Now Apple Mobiles at an all-time low</span><br>
+
+              <button type="button"
+                      class="btn btn-raised"
+                      (click)="productCategory('')"
+                      style="color: white;
+                   background-color: red;
+                   border-radius: 14px;
+                   margin-left: 1%;
+                   margin-bottom: 2%;
+                   margin-top: 15%">
+                SHOP NOW
+              </button>
+            </div>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xl-8">
+            <img src="../../assets/img/bottom-mobile.png" alt="image" style="max-width: 100%; height: auto">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

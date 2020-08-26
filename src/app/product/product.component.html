@@ -1,0 +1,209 @@
+<div class="row" style="margin: 1px;">
+  <div class="col-md-6 col-xs-12 col-lg-6">
+    <div class="row" style="margin: 10% 1px 4% 2%;">
+      <div class="col-md-3 col-sm-3 col-lg-3 col-3">
+        <div style="">
+          <div class="image-thumbnail-box img-thumbnail" *ngFor="let url of productImageUrl"
+               style="margin-bottom: 5%" (click)="getImage(url['url'])">
+            <img [style..display]="url['url'] !== undefined ? 'block': 'none'"
+                 src="{{url['url']}}" alt="image" style="max-width: 100%;height: auto;">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-sm-9 col-lg-9 col-9">
+        <div class="image-main-box img-thumbnail">
+          <img class="img-fluid" src="{{imageUrl}}" alt="image"
+               style="height: auto; max-width: 100%"
+               *ngIf="imageUrl === ''">
+          <img src="{{imageUrl}}" alt="image" style="height: 100%; width: 100%" *ngIf="imageUrl !== ''">
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-12 col-lg-6">
+    <div style="margin-top: 7%">
+      <div>
+        <i class="fa fa-star-o" style="font-size:20px;color:goldenrod;margin-right: 2%"></i>
+        <i class="fa fa-star-o" style="font-size:20px;color:goldenrod;margin-right: 2%"></i>
+        <i class="fa fa-star-o" style="font-size:20px;color:goldenrod;margin-right: 2%"></i>
+        <i class="fa fa-star-o" style="font-size:20px;color:goldenrod;margin-right: 2%"></i>
+        <i class="fa fa-star-o" style="font-size:20px;color:goldenrod;margin-right: 2%"></i>
+      </div>
+      <p style="font-size: 20px">
+        {{
+          productDetails['manufacturer'] +
+          ' ' + productDetails['asset_name'] +
+          '(' + productDetails['product_color'] + ' , ' +
+          storage + ' GB)'
+        }}
+      </p>
+      <p style="line-height: 0; color: red;font-size: 20px;margin-bottom: 10%">
+        <del><span><b>&#8377;{{price}}</b></span></del>&nbsp;&nbsp;
+        <span><b>&#8377;{{specialPrice}}</b></span>
+      </p>
+
+      <div style="font-size: 15px;font-family: Serif,serif;width: 60%;">
+        <p style="font-size: 15px">{{getProcessorName()[0] + ' ' +
+        getProcessorName()[1] + ' ' +
+        getProcessorName()[2] + ' ' +
+        getProcessorName()[3]}}</p>
+        <div *ngFor="let attri of attribute">
+          <p *ngIf="attri.id === 12">{{attri.attribute_value}}</p>
+          <p *ngIf="attri.id === 5">{{attri.attribute_value}}</p>
+          <p *ngIf="attri.id === 17">{{attri.attribute_value}}</p>
+          <p *ngIf="attri.id === 7">{{attri.attribute_value}}</p>
+          <p *ngIf="attri.id === 18">{{attri.attribute_value}}</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; padding-top: 20px" [style.display]="getUserDetails() ? 'flex':'none'">
+      <button type="button"
+              class="btn btn-raised btn-warning btn-block" (click)="goCart()"
+              style="margin:auto">ADD TO CART
+      </button>
+
+      <button type="button"
+              class="btn btn-raised btn-warning btn-block" (click)="goCart()"
+              style=" margin: auto auto auto 2%;">Buy Now
+      </button>
+    </div>
+    <div style="display: flex; padding-top: 20px" [style.display]="!getUserDetails() ? 'flex':'none'">
+      <button type="button"
+              class="btn btn-raised btn-warning btn-block"
+              data-toggle="modal" data-target="#loginModal"
+              style="margin:auto">ADD TO CART
+      </button>
+      <button type="button"
+              class="btn btn-raised btn-warning btn-block"
+              data-toggle="modal" data-target="#loginModal"
+              style=" margin: auto auto auto 2%;">Buy Now
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container" [style.display]="descriptionImage !== undefined ? 'block' : 'none' ">
+  <img class="img-fluid" src="{{descriptionImage}}" style="max-width: 100%;height: auto" alt="img">
+</div>
+
+<div class="tab-content">
+  <div id="home" class="container tab-pane active"><br>
+    <h3 style="color: red;font-family: Serif,serif;">Specifications</h3>
+    <div class="row" style="margin: 1px;
+                        padding: 5px;
+                        font-size: 14px;
+                        font-family: Serif,serif; background: whitesmoke"
+         *ngFor="let attri of attribute">
+      <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+        <b>{{attri.attribute_display_name}}</b>
+      </div>
+      <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+        {{attri.attribute_value}}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!--login modal start-->
+<div class="modal fade"
+     id="loginModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 10px">
+      <div class="modal-body" style="padding: 0 0 0 0;">
+        <div>
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-12 login-image-display-none" style="padding: 0;background: lightgray;">
+              <img class="img-fluid" src="../assets/img/loginBanner.svg" alt="login Banner"
+                   style="max-width: 100%;height: auto">
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-12">
+              <div [style.display]="loginDisplayCount === 0 ? 'block' : 'none'">
+                <form [formGroup]="loginPhoneNoForm"
+                      (ngSubmit)="loginPhoneNo()"
+                      style="padding: 20px;">
+                  <div class="form-group">
+                    <label for="phoneNo" class="bmd-label-floating"></label>
+                    <div class="alert alert-warning" *ngIf="isPhoneNoError"
+                         style="border-radius: 5px; font-size: 10px">
+                      Something went wrong, Please check you phone number and try again.
+                    </div>
+                    <div class="alert alert-warning" *ngIf="getOtpServerError"
+                         style="border-radius: 5px; font-size: 10px">
+                      Something went wrong, Please check you phone number and try again.
+                    </div>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Phone Number"
+                           formControlName="phoneNumber"
+                           required
+                           id="phoneNo">
+                    <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors"
+                         style="color: red; font-size: 10px">
+                      <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors.required">
+                        This field is required
+                      </div>
+                      <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors.maxlength">
+                        Phone Number must be 10 digits number
+                      </div>
+                      <div *ngIf="phoneSubmitted && loginFormPhoneNumber.phoneNumber.errors.minlength">
+                        Phone Number must be 10 digits number
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit"
+                          class="btn btn-raised btn-warning btn-sm">
+                    <span>Request OTP</span>
+                  </button>
+                </form>
+              </div>
+              <div [style.display]="loginDisplayCount === 1 ? 'block' : 'none'">
+                <form [formGroup]="otpFormGroup" (ngSubmit)="otpFormSubmit()" style="padding: 20px;">
+                  <div class="form-group">
+                    <label for="otp" class="bmd-label-floating"></label>
+                    <div class="alert alert-warning" *ngIf="isOtpError"
+                         style="border-radius: 5px; font-size: 10px">
+                      OTP should be 4 digits number and contains only numbers or try again!
+                    </div>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="OTP"
+                           formControlName="otp"
+                           required
+                           id="otp">
+                    <div *ngIf="otpFormSubmitted && otpForm.otp.errors" style="color: red; font-size: 10px">
+                      <div *ngIf="otpFormSubmitted && otpForm.otp.errors.required">
+                        This Field is required.
+                      </div>
+                      <div *ngIf="otpFormSubmitted && otpForm.otp.errors.maxlength">
+                        OTP must be 4 digits.
+                      </div>
+                      <div *ngIf="otpFormSubmitted && otpForm.otp.errors.minlength">
+                        OTP must be 4 digits.
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit"
+                          class="btn btn-raised btn-info btn-sm" (click)="getOptChange()">
+                    <span style="font-size: 15px;margin-right: 2%">Submit</span>
+                  </button>
+                  <button type="button"
+                          class="btn btn-outline-warning btn-sm"
+                          style="margin-left: 2%" (click)="backPhoneNo()">Back
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--login modal end-->

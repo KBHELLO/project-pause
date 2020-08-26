@@ -1,0 +1,37 @@
+.background-image{
+  background-size: cover;
+  position: relative;
+  background: url("../../assets/img/banner.png");
+  width: 100%;
+  height: 400px;
+}
+.text-style{
+  padding: 8px;
+  font-size: 2vw;
+  font-weight: bold;
+  font-family: serif;
+}
+
+.background-hot-deals-image{
+  background: url("../../assets/img/hot-deals-background.png") no-repeat fixed;
+  background-size: contain;
+  height: 100%;
+}
+@media only screen and (max-width: 420px) {
+  .mobile-carousel-block {
+    display: block;
+  }
+
+  .other-carousel-none{
+    display: none;
+  }
+}
+@media only screen and (min-width: 421px) {
+  .mobile-carousel-none {
+    display: none;
+  }
+}
+.img-hover:hover{
+  border: 1px solid lightgray;
+}
+

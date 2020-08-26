@@ -1,0 +1,15 @@
+.image-thumbnail-box{
+  width: 100%;
+  height: auto;
+}
+
+.my-cart-header{
+  padding: 15px;
+  margin-bottom: 2%;
+  border-radius: 5px
+}
+
+.card-radius{
+  border-radius: 5px;
+  margin-bottom: 2%;
+}

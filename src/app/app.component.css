@@ -1,0 +1,83 @@
+.logo-background {
+  background: black;
+  padding: 11px;
+  width: 13%;
+}
+
+.search-background {
+  background: whitesmoke;
+}
+
+.p-text {
+  font-size: 20px;
+  padding: 10px;
+  color: black;
+  background: whitesmoke;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-family: Serif, serif;
+}
+
+.invalid-form-control {
+}
+
+.order-block {
+  height: 400px;
+  overflow: auto;
+  border: 1px solid lightgray;
+  margin-bottom: 3%;
+  padding: 10px;
+  border-radius: 5px
+}
+
+@media only screen and (max-width: 375px) {
+  .mobile {
+    top:30px!important;
+    width: 150%;
+    padding: 10px;
+    right:70px!important;
+  }
+}
+
+@media only screen and (min-width: 376px) {
+  .other {
+    width: 69%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .search-block {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 376px) {
+  .search-none {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .icon-block {
+    display: block;
+    zoom: 2;
+  }
+
+  .text-none {
+    display: none;
+    zoom: 2;
+  }
+}
+
+@media only screen and (max-width: 420px){
+  .login-image-display-none{
+    display: none;
+  }
+}
+
+.cancelCard{
+  border: 1px solid red;
+}
+
+
+

@@ -1,0 +1,27 @@
+.image-main-box{
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.image-main-box:hover{
+  transform: scale(1.1);
+}
+
+.image-thumbnail-box{
+  width: 100%;
+  height: auto;
+  margin-bottom: 4%;
+  border-radius: 5px;
+}
+
+.button-design{
+  border-radius: 12px;
+}
+
+@media only screen and (max-width: 420px){
+  .login-image-display-none{
+    display: none;
+  }
+}
+

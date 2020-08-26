@@ -1,0 +1,232 @@
+<div class="container container-design card">
+  <p class="p-text">
+    Sign Up/Login
+  </p>
+  <div [style.display]="displayCount === 0 ? 'block' : 'none'">
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+      <div class="form-group">
+        <label for="exampleInputEmail11" class="bmd-label-floating"></label>
+        <input type="email"
+               class="form-control"
+               id="exampleInputEmail11"
+               placeholder="Email"
+               formControlName="email_address"
+               required>
+        <div *ngIf="loginSubmitted && lf.email_address.errors" class="invalid-error">
+          <div *ngIf="lf.email_address.errors.required">Email is required</div>
+          <div *ngIf="lf.email_address.errors.email">Email must be a valid email</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail12" class="bmd-label-floating"></label>
+        <input type="password"
+               class="form-control"
+               id="exampleInputEmail12"
+               placeholder="Password"
+               formControlName="password_hash"
+               required>
+        <div *ngIf="loginSubmitted && lf.password_hash.errors" class="invalid-error">
+          <div *ngIf="lf.password_hash.errors.required">Password is required</div>
+          <div *ngIf="lf.password_hash.errors.minlength">Password must be at least 8 digits character</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-raised btn-success btn-block" style="margin-top: 10%">Submit</button>
+      <button type="button" class="btn btn-info" style="margin-left: 40%" (click)="signInPage()">Sign Up</button>
+    </form>
+  </div>
+  <div [style.display]="displayCount === 1 ? 'block' : 'none'">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail1"
+                   placeholder="First Name"
+                   formControlName="first_name"
+                   required>
+            <div *ngIf="signSubmitted && f.first_name.errors" class="invalid-error">
+              <div *ngIf="f.first_name.errors.required">First Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail2" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail2"
+                   placeholder="Last Name"
+                   formControlName="last_name"
+                   required>
+            <div *ngIf="signSubmitted && f.last_name.errors" class="invalid-error">
+              <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="exampleInputEmail3" class="bmd-label-floating"></label>
+            <input type="email"
+                   class="form-control"
+                   id="exampleInputEmail3"
+                   placeholder="Email"
+                   formControlName="email"
+                   required>
+            <div *ngIf="signSubmitted && f.email.errors" class="invalid-error">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="exampleInputEmail4" class="bmd-label-floating"></label>
+            <input type="password"
+                   class="form-control"
+                   id="exampleInputEmail4"
+                   placeholder="Password"
+                   formControlName="password"
+                   required>
+            <div *ngIf="signSubmitted && f.password.errors" class="invalid-error">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="exampleInputEmail6" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail6"
+                   placeholder="Phone Number"
+                   formControlName="Phone_number"
+                   required>
+            <div *ngIf="signSubmitted && f.Phone_number.errors" class="invalid-error">
+              <div *ngIf="f.Phone_number.errors.required">Phone Number is required</div>
+              <div *ngIf="f.Phone_number.errors.maxlength">Phone Number must be 10 characters</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail7" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail7"
+                   placeholder="Address Line 1"
+                   formControlName="addressLine1"
+                   required>
+            <div *ngIf="signSubmitted && f.addressLine1.errors" class="invalid-error">
+              <div *ngIf="f.addressLine1.errors.required">Address Line 1 is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail8" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail8"
+                   placeholder="Address Line 2"
+                   formControlName="addressLine2"
+                   required>
+            <div *ngIf="signSubmitted && f.addressLine2.errors" class="invalid-error">
+              <div *ngIf="f.addressLine2.errors.required">Address Line 2 is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail9" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail9"
+                   placeholder="PIN Code"
+                   formControlName="pin_code"
+                   required>
+            <div *ngIf="signSubmitted && f.pin_code.errors" class="invalid-error">
+              <div *ngIf="f.pin_code.errors.required">Pin Code is required</div>
+              <div *ngIf="f.pin_code.errors.minlength">Pin code must be 6 digits number</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail10" class="bmd-label-floating"></label>
+            <input type="text"
+                   class="form-control"
+                   id="exampleInputEmail10"
+                   placeholder="Land mark"
+                   formControlName="land_mark"
+                   required>
+            <div *ngIf="signSubmitted && f.land_mark.errors" class="invalid-error">
+              <div *ngIf="f.land_mark.errors.required">Land Mark is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleSelect1"
+                   class="bmd-label-floating">State</label>
+            <select class="form-control"
+                    id="exampleSelect1"
+                    formControlName="state"
+                    required
+                    (change)="getStateId($event)">
+              <option></option>
+              <option *ngFor="let state of states" [value]="state.id">
+                {{state.state_name}}
+              </option>
+            </select>
+            <div *ngIf="signSubmitted && f.state.errors" class="invalid-error">
+              <div *ngIf="f.state.errors.required">State is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleSelect2"
+                   class="bmd-label-floating">City</label>
+            <select class="form-control"
+                    id="exampleSelect2"
+                    formControlName="city"
+                    required>
+              <option></option>
+              <option *ngFor="let city of cities" [value]="city['id']">
+                {{city['city_name']}}
+              </option>
+            </select>
+            <div *ngIf="signSubmitted && f.city.errors" class="invalid-error">
+              <div *ngIf="f.city.errors.required">City is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="exampleSelect14"
+                   class="bmd-label-floating">Address Type</label>
+            <select class="form-control"
+                    id="exampleSelect14"
+                    formControlName="address_type"
+                    required>
+              <option value="HOME">HOME</option>
+              <option value="OFFICE">OFFICE</option>
+            </select>
+            <div *ngIf="signSubmitted && f.address_type.errors" class="invalid-error">
+              <div *ngIf="f.address_type.errors.required">Address Type is required</div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-warning btn-sm"
+                style="margin-left: auto" data-dismiss="modal" (click)="resetForm()">BACK
+        </button>
+        <button type="submit" class="btn btn-outline-success btn-sm"
+                style="margin-left: 2%;margin-right: auto">SUBMIT
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

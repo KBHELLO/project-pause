@@ -1,0 +1,18 @@
+.background-image{
+  height: 500px;
+  background: url("../../assets/img/background.png") no-repeat fixed;
+  background-size: contain;
+  width: 100%;
+}
+
+.category-card{
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  background: white;
+  text-align: center;
+}
+.button-design{
+  border-radius: 12px;
+}

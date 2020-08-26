@@ -1,0 +1,32 @@
+<div class="container-fluid" style="padding: 0;">
+  <img src="../../assets/img/Banner.jpg" alt="image" style="width: 100%;">
+</div>
+<div class="container-fluid" style="margin-top: 5%">
+  <div class="row" style="margin-bottom: 2%">
+    <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12"
+         style="margin-bottom: 2%" *ngFor="let product of categoryProduct; let i=index;">
+      <div class="category-card" (click)="goToProduct(product['sku'])">
+        <img class="img-fluid"
+             src="{{product['picture']}}" alt="image"
+             style="height: auto;max-width: 100%">
+        <p class="card-text">
+          <span [style.font-size]="product['sub_category'] === 4 ? '10px' : '15px'">{{product['asset_name']}}</span>
+          <span [style.font-size]="product['sub_category'] === 4 ? '10px' : '15px'">
+            ({{getProductDetailsSku(product['sku'])[3] | titlecase}}</span>&nbsp;,
+          <span [style.font-size]="product['sub_category'] === 4 ? '10px' : '15px'">
+            {{getProductDetailsSku(product['sku'])[4]}}</span>
+          <span *ngIf="product['sub_category'] === 2"
+                [style.font-size]="product['sub_category'] === 4 ? '10px' : '15px'"> GB)</span><br>
+          <span style="font-size: 15px;color: red"><del><b>&#8377;{{product['sale_price']}}</b></del></span>&nbsp;
+          <span style="font-size: 15px;color: red"><b>&#8377;{{product['special_price']}}</b></span><br>
+          <span class="heading"></span>
+          <span class="fa fa-star checked" style="color: goldenrod"></span>
+          <span class="fa fa-star checked" style="color: goldenrod"></span>
+          <span class="fa fa-star checked" style="color: goldenrod"></span>
+          <span class="fa fa-star checked" style="color: goldenrod"></span>
+          <span class="fa fa-star" style="color: goldenrod"></span><br>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
